@@ -48,7 +48,8 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
 
 &emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [RealSLF, Optics Express 2025](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049) [https://github.com/lishiqiao/FlexiDim_demo] offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
 
-If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research. Thank you!
+If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research.
+** Thank you!**
 
 ---
 
