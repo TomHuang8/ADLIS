@@ -53,6 +53,8 @@ If you find this repo or dataset useful, please give it a star ⭐ and consider 
 ---
 
 ## 💾 Dataset
+![image](https://github.com/TomHuang8/ADLIS/blob/main/Figures/dataset.png)
+
 &emsp;We use the 5D spectral light-field dataset from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo). The raw data has dimensions $H \times W \times 36 \times 5 \times 5$, where $5 \times 5$ denotes the angular views and $36$ is the number of spectral bands. To adapt it for our ADLIS framework, we preprocess the data as follows:
 * Spatial resolution cropped to $400 \times 400$ pixels,
 * Angular views subsampled to a $3 \times 3$ grid,
