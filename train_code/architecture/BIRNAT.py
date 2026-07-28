@@ -118,8 +118,6 @@ class up_feature(nn.Module):
         return x
 
 class cnn1(nn.Module):
-    # 输入meas concat mask
-    # 3 下采样
 
     def __init__(self, B):
         super(cnn1, self).__init__()
