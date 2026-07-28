@@ -11,7 +11,7 @@
   <a href='https://arxiv.org/pdf/2607.04635'>
   <img src='https://img.shields.io/badge/Arxiv-2607.04635-A42C25?style=flat&logo=arXiv&logoColor=A42C25'></a> 
   <a href='https://github.com/lishiqiao/FlexiDim_demo'> 
-  <img src='https://img.shields.io/badge/GitHub-Dataset%20(FlexiDim_demo)-blue'></a>
+  <img src='https://img.shields.io/badge/Dataset%20(Github:FlexiDim_demo)-blue'></a>
   <a href="https://visitor-badge.laobi.icu/badge?page_id=TomHuang8.ADLIS">
   <img src="https://visitor-badge.laobi.icu/badge?page_id=TomHuang8.ADLIS&left_text=VISITORS&left_color=gray&right_color=%2342b983" alt="Visitors">
    </a>
@@ -49,7 +49,7 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
 &emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [RealSLF, Optics Express 2025](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049) [https://github.com/lishiqiao/FlexiDim_demo] offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
 
 If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research.
-** Thank you!**
+THANK YOU!!
 
 ---
 
@@ -86,15 +86,16 @@ dataset_9_36/
 ```
 
 ### Dataset Access
-The raw hyperspectral light-field data originates from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo)  .
+* The raw hyperspectral light-field data originates from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo).
+* The processed data cube can be downloaded here: [Baidu Netdisk](https://pan.baidu.com/s/1gOKF_OkGgzSnxWzeebCavA?pwd=7ygn).
 #### 👉 Raw Dataset Download: Google Drive
-To run the ADLIS test pipeline:
-Download the data/ folder from the official Google Drive link provided by [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo).
-Place the downloaded data/ folder under the root directory of this repository.
+To run the extended experiments:
+Download the raw data from the official Google Drive link (https://drive.google.com/drive/folders/15bdm__k6pzH18y-VnNB9X6QTfNbZETrT?usp=drive_link) provided by the authors of the [RealSLF dataset](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049) linked with [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo).
+Place the downloaded data under the root directory of this repository.
 Perform the preprocessing (spatial cropping & viewpoint subsampling) described above, or modify the dataloader to adapt to our input format.
 #### ⚠️ Important Notice:
-This repository does not host or redistribute the complete raw dataset. All dataset resources are maintained by the original FlexiDim_demo authors.
-Please check the FlexiDim_demo repository for data license, usage terms, future full dataset release updates, and the internal variable structure of each .mat file.
+This repository does not host or redistribute the complete raw dataset. All dataset resources are maintained by the original [RealSLF](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049) authors.
+Please check the [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo) repository for data license, usage terms, future full dataset release updates, and the internal variable structure of each `.mat` file.
 
 ## 🚀 Getting Started
 
