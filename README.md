@@ -40,13 +40,13 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
     muted 
     loop 
     autoplay
-    src="[https://github.com/user-attachments/assets/65d8ac00-41ce-4100-a61f-6441833d28f8]"
+    src="https://github.com/user-attachments/assets/65d8ac00-41ce-4100-a61f-6441833d28f8.mp4"
   >
-    你的浏览器不支持视频播放
+    Your browser does not support video playback.
   </video>
 </div>
 
-&emsp;However, beyond our specific baseline, the open-sourced high-quality dynamic hyperspectral images dataset (DynaSpec) is highly versatile. For example, it can be readily adapted to advance research in a variety of other video-level hyperspectral tasks, such as reconstruction in various snapshot hyperspectral imaging systems with either adaptive or fixed modulation. It can also serve as approximately clean data for hyperspectral video denoising tasks.
+&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from FlexiDim_demo offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
 
 If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research. Thank you!
 
