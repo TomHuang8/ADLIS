@@ -70,64 +70,13 @@ if opt.aperture_mode == 'CCFA':
     opt.frame = 1
 elif opt.aperture_mode == 'DO':
     opt.frame = opt.frame
-elif opt.aperture_mode == 'REAL':
-    opt.frame = opt.frame
+
 
 opt.data_root = os.path.join(opt.root, opt.data_name)
 last_folder = os.path.basename(os.path.normpath(opt.data_root))
 opt.outf = os.path.join('../../train_record/', last_folder, 'train/', opt.method, str(opt.frame), str(opt.aperture_mode))
 
-if opt.data_name == 'dataset_qiao_crop/':
-    opt.num_pixels = 25
-    opt.num_wavelengths = 36
-    opt.sizes = 400
-elif opt.data_name == 'dataset_qiao_crop_9/':
+if opt.data_name == 'dataset_9_36/':
     opt.num_pixels = 9
     opt.num_wavelengths = 36
     opt.sizes = 400
-elif opt.data_name == 'dataset_qiao_crop_25/':
-    opt.num_pixels = 25
-    opt.num_wavelengths = 36
-    opt.sizes = 200
-    opt.optics_d = [
-        672.9, 784.5, 591.2, 823.7, 654.8, 735.6, 589.1, 892.3, 765.4,
-        612.7, 748.9, 693.2, 856.5, 578.3, 721.6, 884.7, 639.8, 702.5,
-        567.9, 843.1, 759.2, 685.3, 812.4, 796.8, 924.5
-    ]
-elif opt.data_name == 'dataset_qiao_crop_9_plus/':
-    opt.num_pixels = 9
-    opt.num_wavelengths = 36
-    opt.sizes = 200
-elif opt.data_name == 'dataset_lv/':
-    opt.num_pixels = 9
-    opt.num_wavelengths = 31
-    opt.sizes = 58
-elif opt.data_name == 'dataset_lv_25/':
-    opt.num_pixels = 25
-    opt.num_wavelengths = 31
-    opt.sizes = 58
-elif opt.data_name == 'dataset_lv_49/':
-    opt.num_pixels = 49
-    opt.num_wavelengths = 31
-    opt.sizes = 58
-elif opt.data_name == 'dataset_9_25/':
-    opt.num_pixels = 9
-    opt.num_wavelengths = 25
-    opt.sizes = [400, 400]
-elif opt.data_name == 'dataset_sy_9_25/':
-    opt.num_pixels = 9
-    opt.num_wavelengths = 25
-    opt.sizes = [600, 800]
-elif opt.data_name == 'dataset_9_31/':
-    opt.num_pixels = 9
-    opt.num_wavelengths = 31
-    opt.sizes = [400, 400]
-elif opt.data_name == 'dataset_9_36/':
-    opt.num_pixels = 9
-    opt.num_wavelengths = 36
-    opt.sizes = [400, 400]
-elif opt.data_name in ['dataset_lv_9_plus/', 'dataset_9_31_200/', 'dataset_9_31_200_re/']:
-    opt.num_pixels = 9
-    opt.num_wavelengths = 31
-    opt.sizes = 200
-    opt.optics_d = [644.0, 671.0, 692.0, 587.0, 683.0, 645.0, 905.0, 854.0, 597.0]
