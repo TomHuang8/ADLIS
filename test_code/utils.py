@@ -1,14 +1,11 @@
 import hdf5storage
-
 from fvcore.nn import FlopCountAnalysis
 import torch
 import torch.nn as nn
 import math
-import torch.nn as nn
 import logging
 import numpy as np
 import os
-import torch
 import torch.nn.functional as F
 from torch.autograd import Variable
 from math import exp
@@ -29,6 +26,7 @@ def create_window(window_size, channel):
 def save_matv73(mat_name, var_name, var):
     hdf5storage.savemat(mat_name, {var_name: var}, format='7.3', store_python_metadata=True)
 
+
 class AverageMeter(object):
     def __init__(self):
         self.reset()
@@ -45,55 +43,30 @@ class AverageMeter(object):
         self.count += n
         self.avg = self.sum / self.count
 
-# class Loss_MRAE(nn.Module):
-#     def __init__(self):
-#         super(Loss_MRAE, self).__init__()
-#
-#     def forward(self, outputs, label):
-#         assert outputs.shape == label.shape
-#         error = torch.abs(outputs - label) / label
-#         mrae = torch.mean(error.reshape(-1))
-#         return mrae
-
-
 
 class Loss_SAM(nn.Module):
     def __init__(self):
         super(Loss_SAM, self).__init__()
+
     def forward(self, im_true, im_fake, data_range=255, eps=1e-6):
-        """
-        计算两个图像之间的光谱角映射（SAM）
-
-        参数:
-            im_true (Tensor): 真实图像, 形状 [N, C, H, W]
-            im_fake (Tensor): 生成图像, 形状 [N, C, H, W]
-            data_range (float): 数据范围 (默认255)
-            eps (float): 数值稳定系数
-
-        返回:
-            Tensor: 平均SAM值（标量）
-        """
-        # 数据预处理（与PSNR计算逻辑一致）
         im_true = im_true.clamp(0.0, 1.0) * data_range
         im_fake = im_fake.clamp(0.0, 1.0) * data_range
-        # 获取张量维度信息
+
         N, C, H, W = im_true.shape
-        # 将张量转换为像素向量形式 [N, H*W, C]
         im_true_flat = im_true.permute(0, 2, 3, 1).reshape(N, H * W, C)
         im_fake_flat = im_fake.permute(0, 2, 3, 1).reshape(N, H * W, C)
-        # 计算点积和范数
-        dot_product = (im_true_flat * im_fake_flat).sum(dim=2)  # [N, H*W]
-        norm_true = torch.norm(im_true_flat, p=2, dim=2)  # [N, H*W]
-        norm_fake = torch.norm(im_fake_flat, p=2, dim=2)  # [N, H*W]
-        # 计算余弦相似度（考虑数值稳定性）
-        cos_theta = dot_product / (norm_true * norm_fake + eps)
-        cos_theta = torch.clamp(cos_theta, -1.0 + eps, 1.0 - eps)  # 防止反余弦计算错误
-        # 计算角度（弧度转角度）
-        sam_rad = torch.acos(cos_theta)  # [N, H*W]
-        sam_deg = sam_rad * (180.0 / math.pi)  # [N, H*W]
-        # 计算平均SAM：先按样本平均，再整体平均
-        return sam_deg.mean(dim=1).mean()  # 标量
 
+        dot_product = (im_true_flat * im_fake_flat).sum(dim=2)
+        norm_true = torch.norm(im_true_flat, p=2, dim=2)
+        norm_fake = torch.norm(im_fake_flat, p=2, dim=2)
+
+        cos_theta = dot_product / (norm_true * norm_fake + eps)
+        cos_theta = torch.clamp(cos_theta, -1.0 + eps, 1.0 - eps)
+
+        sam_rad = torch.acos(cos_theta)
+        sam_deg = sam_rad * (180.0 / math.pi)
+
+        return sam_deg.mean(dim=1).mean()
 
 
 class Loss_MRAE(nn.Module):
@@ -114,10 +87,11 @@ class Loss_RMSE(nn.Module):
 
     def forward(self, outputs, label):
         assert outputs.shape == label.shape
-        error = outputs-label
-        sqrt_error = torch.pow(error,2)
+        error = outputs - label
+        sqrt_error = torch.pow(error, 2)
         rmse = torch.sqrt(torch.mean(sqrt_error.reshape(-1)))
         return rmse
+
 
 class Loss_PSNR(nn.Module):
     def __init__(self):
@@ -134,6 +108,7 @@ class Loss_PSNR(nn.Module):
         err = mse(Itrue, Ifake).sum(dim=1, keepdim=True).div_(C * H * W)
         psnr = 10. * torch.log((data_range ** 2) / err) / np.log(10.)
         return torch.mean(psnr)
+
 
 def _ssim(img1, img2, window, window_size, channel, size_average=True):
     mu1 = F.conv2d(img1, window, padding=window_size // 2, groups=channel)
@@ -173,11 +148,9 @@ class SSIM(torch.nn.Module):
             window = self.window
         else:
             window = create_window(self.window_size, channel)
-
             if im_true.is_cuda:
                 window = window.cuda(im_true.get_device())
             window = window.type_as(im_true)
-
             self.window = window
             self.channel = channel
 
@@ -187,19 +160,17 @@ class SSIM(torch.nn.Module):
 def ssim(img1, img2, window_size=11, size_average=True):
     (_, channel, _, _) = img1.size()
     window = create_window(window_size, channel)
-
     if img1.is_cuda:
         window = window.cuda(img1.get_device())
     window = window.type_as(img1)
-
     return _ssim(img1, img2, window, window_size, channel, size_average)
 
 
-def my_summary(test_model, H = 256, W = 256, C = 31, N = 1):
+def my_summary(test_model, H=256, W=256, C=31, N=1):
     model = test_model.cuda()
     print(model)
     inputs = torch.randn((N, C, H, W)).cuda()
-    flops = FlopCountAnalysis(model,inputs)
+    flops = FlopCountAnalysis(model, inputs)
     n_param = sum([p.nelement() for p in model.parameters()])
     print(f'GMac:{flops.total()/(1024*1024*1024)}')
     print(f'Params:{n_param}')
