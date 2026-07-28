@@ -53,19 +53,39 @@ If you find this repo or dataset useful, please give it a star ⭐ and consider 
 ---
 
 ## 💾 Dataset
-The example hyperspectral light-field dataset adopted in this work originates from **FlexiDim_demo** [(https://github.com/lishiqiao/FlexiDim_demo)].
-The demo provides a single scene with 25-view hyperspectral data for method validation.
+&emsp;Our experiments adopt the 5D spectral light-field dataset from FlexiDim_demo. The original dataset provides hyperspectral light-field data with dimensions $H\times W\times 36\times 5\times 5$, where $5\times5$ corresponds to the angular (view) dimension and 36 denotes spectral channels. For our ADLIS experiments, we conduct preprocessing on the raw data: the spatial resolution is cropped to $400\times400$, the viewpoints are subsampled into a $3\times3$ angular grid, and all 36 spectral channels are preserved.
 
+The dataset contains 27 hyperspectral light-field scenes. We partition all scenes into 21 training scenes and 6 validation scenes for model training and quantitative evaluation.
+
+### Dataset Structure
+All processed hyperspectral `.mat` files are stored under `dataset/Train_Spec/`. The training/validation partition is defined by two text files placed within `dataset/split_txt/`:
+- `train_list.txt`: List of 21 scene names for the training set
+- `valid_list.txt`: List of 6 scene names for the validation set
+
+```text
+dataset/
+├── Train_Spec/
+│   ├── Tao_1_25real_9_36.mat
+│   ├── Tao_2_25real_9_36.mat
+│   ├── ...
+│   ├── near_9_25real_9_36.mat
+│   └── far_4_25real_9_36.mat
+└── split_txt/
+    ├── train_list.txt
+    └── valid_list.txt
+```
+
+### Dataset Access
+The raw hyperspectral light-field data originates from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo)  .
+#### 👉 Raw Dataset Download: Google Drive
 To run the ADLIS test pipeline:
-1. Download the `data/` folder from the official Google Drive link provided by FlexiDim_demo:
-👉 https://drive.google.com/drive/folders/15bdm__k6pzH18y-VnNB9X6QTfNbZETrT?usp=drive_link
-2. Move the downloaded `data/` folder into the root directory of this repository.
+Download the data/ folder from the official Google Drive link provided by FlexiDim_demo.
+Place the downloaded data/ folder under the root directory of this repository.
+Perform the preprocessing (spatial cropping & viewpoint subsampling) described above, or modify the dataloader to adapt to our input format.
+#### ⚠️ Important Notice:
+This repository does not host or redistribute the complete raw dataset. All dataset resources are maintained by the original FlexiDim_demo authors.
+Please check the FlexiDim_demo repository for data license, usage terms, future full dataset release updates, and the internal variable structure of each .mat file.
 
-> ⚠️ Important Notice:
-> We do not redistribute or host the original dataset. All dataset resources are maintained by the original authors.
-> Please check the FlexiDim_demo repository for data license, usage terms and future full dataset release updates.
-
- 
 ## ✒️ Citation
 If this repo helps you, please consider citing our works:
 
