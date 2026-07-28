@@ -62,7 +62,7 @@ After preprocessing, each scene is stored as a single MATLAB file with dimension
 ### Download Links (Pre-processed Data)
 * [Baidu Netdisk] https://pan.baidu.com/s/1gOKF_OkGgzSnxWzeebCavA?pwd=7ygn
 
-The dataset contains 27 hyperspectral light-field scenes. We partition all scenes into 21 training scenes and 6 validation scenes for model training and quantitative evaluation. The raw 5D-SLF dataset contains full-resolution hyperspectral light-field images captured by GaiaField push-broom camera. Each `.mat` file contains a hyperspectral image image variable named `cube` with dimensions 400×400×324.
+The dataset contains 27 hyperspectral light-field scenes. We partition all scenes into 21 training scenes and 6 validation scenes for model training and quantitative evaluation. The raw 5D-SLF dataset contains full-resolution hyperspectral light-field images captured by GaiaField push-broom camera. Each `.mat` file contains a hyperspectral light-field image variable named `cube` with dimensions 400×400×324. The download package contains `Train_RGB` and `Test_RGB` folders with pseudo-color RGB renderings of the central view for training and test sets, to help users intuitively grasp the scene layouts.
 
 ### Dataset Structure
 All processed hyperspectral `.mat` files are stored under `dataset/Train_Spec/`. The training/validation partition is defined by two text files placed within `dataset/split_txt/`:
@@ -70,7 +70,7 @@ All processed hyperspectral `.mat` files are stored under `dataset/Train_Spec/`.
 - `valid_list.txt`: List of 6 scene names for the validation set
 
 ```text
-dataset/
+dataset_9_36/
 ├── Train_Spec/
 │   ├── Tao_1_25real_9_36.mat
 │   ├── Tao_2_25real_9_36.mat
