@@ -40,7 +40,7 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
     muted 
     loop 
     autoplay
-    src="[https://github.com/TomHuang8/ADLIS/raw/main/Visualization%201.mp4]"
+    src="[https://github.com/user-attachments/assets/65d8ac00-41ce-4100-a61f-6441833d28f8]"
   >
     你的浏览器不支持视频播放
   </video>
