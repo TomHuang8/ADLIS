@@ -31,8 +31,8 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
 <div style="display: flex; justify-content: center; align-items: center; margin: 20px 0;">
   <video 
     style="
-      max-width: 90%;  /* 最大宽度占屏幕90%，适配小屏幕 */
-      width: 600px;    /* 电脑端固定宽度，超过90%时自动缩小 */
+      max-width: 80%;  /* 最大宽度占屏幕90%，适配小屏幕 */
+      width: 500px;    /* 电脑端固定宽度，超过90%时自动缩小 */
       height: auto;    /* 保持宽高比 */
       border-radius: 8px; /* 可选：给视频加圆角，更美观 */
     "
@@ -46,16 +46,23 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
   </video>
 </div>
 
-&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from FlexiDim_demo offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
+&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo) offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
 
 If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research. Thank you!
 
 ---
 
 ## 💾 Dataset
-&emsp;Our experiments adopt the 5D spectral light-field dataset from FlexiDim_demo. The original dataset provides hyperspectral light-field data with dimensions $H\times W\times 36\times 5\times 5$, where $5\times5$ corresponds to the angular (view) dimension and 36 denotes spectral channels. For our ADLIS experiments, we conduct preprocessing on the raw data: the spatial resolution is cropped to $400\times400$, the viewpoints are subsampled into a $3\times3$ angular grid, and all 36 spectral channels are preserved.
+&emsp;We use the 5D spectral light-field dataset from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo). The raw data has dimensions $H \times W \times 36 \times 5 \times 5$, where $5 \times 5$ denotes the angular views and $36$ is the number of spectral bands. To adapt it for our ADLIS framework, we preprocess the data as follows:
+* Spatial resolution cropped to $400 \times 400$ pixels,
+* Angular views subsampled to a $3 \times 3$ grid,
+* All 36 spectral channels retained.
+After preprocessing, each scene is stored as a single MATLAB file with dimensions $400 \times 400 \times 324$, where $324 = 36 \text{ (bands)} \times 9 \text{ (views)}$.
 
-The dataset contains 27 hyperspectral light-field scenes. We partition all scenes into 21 training scenes and 6 validation scenes for model training and quantitative evaluation.
+### Download Links (Pre-processed Data)
+* [Baidu Netdisk] https://pan.baidu.com/s/1gOKF_OkGgzSnxWzeebCavA?pwd=7ygn
+
+The dataset contains 27 hyperspectral light-field scenes. We partition all scenes into 21 training scenes and 6 validation scenes for model training and quantitative evaluation. The raw 5D-SLF dataset contains full-resolution hyperspectral light-field images captured by GaiaField push-broom camera. Each `.mat` file contains a hyperspectral image image variable named `cube` with dimensions 400×400×324.
 
 ### Dataset Structure
 All processed hyperspectral `.mat` files are stored under `dataset/Train_Spec/`. The training/validation partition is defined by two text files placed within `dataset/split_txt/`:
@@ -79,7 +86,7 @@ dataset/
 The raw hyperspectral light-field data originates from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo)  .
 #### 👉 Raw Dataset Download: Google Drive
 To run the ADLIS test pipeline:
-Download the data/ folder from the official Google Drive link provided by FlexiDim_demo.
+Download the data/ folder from the official Google Drive link provided by [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo).
 Place the downloaded data/ folder under the root directory of this repository.
 Perform the preprocessing (spatial cropping & viewpoint subsampling) described above, or modify the dataloader to adapt to our input format.
 #### ⚠️ Important Notice:
