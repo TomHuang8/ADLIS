@@ -46,7 +46,7 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
   </video>
 </div>
 
-&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [RealSLF]([https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049]) [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo) offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
+&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [RealSLF, Optics Express 2025](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049) [https://github.com/lishiqiao/FlexiDim_demo] offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
 
 If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research. Thank you!
 
@@ -119,7 +119,7 @@ pip install -r requirements.txt
 
 ### 2. Data Preparation
 
-For training and evaluation, we provide pre-processed data derived from [RealSLF]([https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049]). 
+For training and evaluation, we provide pre-processed data derived from [RealSLF](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049). 
 
 Download the pre-processed data from [Baidu Netdisk](https://pan.baidu.com/s/1gOKF_OkGgzSnxWzeebCavA?pwd=7ygn) and organize as follows:
 
