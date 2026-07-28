@@ -27,7 +27,6 @@ from utils import (
 from train_option import opt, save_model_params, save_options
 from train_forward_process import FunModule, process_images, slf_to_lf, process_images_plus
 from ccfa_forward_process import CCFAModule
-from real_forward_process import REALModule
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpu_id
