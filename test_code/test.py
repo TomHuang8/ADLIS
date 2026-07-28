@@ -14,7 +14,7 @@ import datetime
 from test_option import opt, save_options, save_model_params
 from test_forward_process import FunModule
 from ccfa_forward_process import CCFAModule
-from real_forward_process import REALModule
+
 
 os.environ["CUDA_DEVICE_ORDER"] = 'PCI_BUS_ID'
 os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpu_id
