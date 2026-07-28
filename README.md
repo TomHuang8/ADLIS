@@ -28,11 +28,11 @@
 In the paper, the proposed ADLIS adopts a compact birefringent coding model with a manufacturing-friendly, cost-effective birefringent quartz phase plate mounted on the aperture plane to realize angular-spectral-aware encoding. Different from microlens arrays that map separate viewpoints onto discrete sensor pixels, ADLIS superimposes light rays from all viewpoints onto each sensor pixel through aperture multiplexing, which maximizes spatial information throughput and enables full-resolution light field reconstruction. We further develop an end-to-end ADLI framework that jointly optimizes the differentiable phase plate thickness design and the 5D-SLF reconstruction decoder in a unified pipeline.
 
 <!-- 进阶版：适配不同屏幕，精准居中+控大小 -->
-<div style="display: flex; justify-content: center; align-items: center; margin: 20px 0;">
+<div style="display: flex; justify-content: center; align-items: center; margin: 10px 0;">
   <video 
     style="
-      max-width: 80%;  /* 最大宽度占屏幕90%，适配小屏幕 */
-      width: 500px;    /* 电脑端固定宽度，超过90%时自动缩小 */
+      max-width: 90%;  /* 最大宽度占屏幕90%，适配小屏幕 */
+      width: 600px;    /* 电脑端固定宽度，超过90%时自动缩小 */
       height: auto;    /* 保持宽高比 */
       border-radius: 8px; /* 可选：给视频加圆角，更美观 */
     "
@@ -46,7 +46,7 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
   </video>
 </div>
 
-&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo) offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
+&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [RealSLF]([https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049]) [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo) offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
 
 If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research. Thank you!
 
@@ -94,6 +94,39 @@ Perform the preprocessing (spatial cropping & viewpoint subsampling) described a
 #### ⚠️ Important Notice:
 This repository does not host or redistribute the complete raw dataset. All dataset resources are maintained by the original FlexiDim_demo authors.
 Please check the FlexiDim_demo repository for data license, usage terms, future full dataset release updates, and the internal variable structure of each .mat file.
+
+## 🚀 Getting Started
+
+### 1. Environment Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/TomHuang8/ADLIS.git
+cd ADLIS
+
+# Create a conda environment (Python 3.6, tested)
+conda create -n adlis python=3.6.13
+conda activate adlis
+
+# Install PyTorch 1.10.2 with CUDA 11.3 (tested)
+pip install torch==1.10.2+cu113 torchvision==0.11.3 --index-url https://download.pytorch.org/whl/cu113
+# For other CUDA versions of PyTorch 1.10, refer to https://pytorch.org/get-started/previous-versions/
+
+# Install other dependencies
+cd train_code
+pip install -r requirements.txt
+```
+
+### 2. Data Preparation
+
+For training and evaluation, we provide pre-processed data derived from [RealSLF]([https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049]). 
+
+Download the pre-processed data from [Baidu Netdisk](https://pan.baidu.com/s/1gOKF_OkGgzSnxWzeebCavA?pwd=7ygn) and organize as follows:
+
+```text
+<data_root>/
+├── dataset_9_36/                              #  (training & testing)
+```
 
 ## ✒️ Citation
 If this repo helps you, please consider citing our works:
