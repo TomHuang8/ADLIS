@@ -1,11 +1,10 @@
 from __future__ import division
 
-import torch
-import torch.nn as nn
+import os
 import logging
 import numpy as np
-import os
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 from math import exp
@@ -21,7 +20,6 @@ def create_window(window_size, channel):
     _2D_window = _1D_window.mm(_1D_window.t()).float().unsqueeze(0).unsqueeze(0)
     window = Variable(_2D_window.expand(channel, 1, window_size, window_size).contiguous())
     return window
-
 
 
 class AverageMeter(object):
@@ -50,6 +48,7 @@ def initialize_logger(file_dir):
     logger.setLevel(logging.INFO)
     return logger
 
+
 def save_checkpoint(model_path, epoch, iteration, model, optimizer):
     state = {
         'epoch': epoch,
@@ -57,19 +56,9 @@ def save_checkpoint(model_path, epoch, iteration, model, optimizer):
         'state_dict': model.state_dict(),
         'optimizer': optimizer.state_dict(),
     }
-
     torch.save(state, os.path.join(model_path, 'net_%depoch.pth' % epoch))
 
-# class Loss_MRAE(nn.Module): 会有除以0的错误
-#     def __init__(self):
-#         super(Loss_MRAE, self).__init__()
-#
-#     def forward(self, outputs, label):
-#         assert outputs.shape == label.shape
-#         error = torch.abs(outputs - label) / label
-#         # view(-1)?
-#         mrae = torch.mean(error.reshape(-1))
-#         return mrae
+
 class Loss_MRAE(nn.Module):
     def __init__(self, eps=0.1):
         super(Loss_MRAE, self).__init__()
@@ -81,17 +70,18 @@ class Loss_MRAE(nn.Module):
         mrae = torch.mean(error.reshape(-1))
         return mrae
 
+
 class Loss_RMSE(nn.Module):
     def __init__(self):
         super(Loss_RMSE, self).__init__()
 
     def forward(self, outputs, label):
         assert outputs.shape == label.shape
-        error = outputs-label
+        error = outputs - label
         sqrt_error = torch.pow(error, 2)
-        # view(-1)?
         rmse = torch.sqrt(torch.mean(sqrt_error.reshape(-1)))
         return rmse
+
 
 class Loss_PSNR(nn.Module):
     def __init__(self):
@@ -148,11 +138,9 @@ class SSIM(torch.nn.Module):
             window = self.window
         else:
             window = create_window(self.window_size, channel)
-
             if im_true.is_cuda:
                 window = window.cuda(im_true.get_device())
             window = window.type_as(im_true)
-
             self.window = window
             self.channel = channel
 
@@ -162,11 +150,9 @@ class SSIM(torch.nn.Module):
 def ssim(img1, img2, window_size=11, size_average=True):
     (_, channel, _, _) = img1.size()
     window = create_window(window_size, channel)
-
     if img1.is_cuda:
         window = window.cuda(img1.get_device())
     window = window.type_as(img1)
-
     return _ssim(img1, img2, window, window_size, channel, size_average)
 
 
@@ -182,7 +168,6 @@ def time2file_name(time):
 
 
 def record_loss(loss_csv, epoch, iteration, epoch_time, lr, train_loss, test_loss):
-    """ Record many results."""
     loss_csv.write('{},{},{},{},{},{}\n'.format(epoch, iteration, epoch_time, lr, train_loss, test_loss))
     loss_csv.flush()
-    loss_csv.close
+    loss_csv.close()
