@@ -139,9 +139,82 @@ model_zoo/
 └── net_300epoch.pth   # Decoder: Restormer, Frame num: 2
 ```
 
+### 4. Training
+
+All training is launched from the `train_code/` directory. The training jointly optimizes the birefringent phase plate parameters (thickness map) and the reconstruction network in an end-to-end manner. The key argument `--frame` defines the number of measurement frames used for encoding:
+
+| System Mode | `--frame` | Description |
+| :---: | :---: | :--- |
+| 1-frame | `1` | Single measurement with `theta = thita` |
+| 2-frame | `2` | Two measurements with `theta = thita, thita2` |
+| 3-frame | `3` | Three measurements with `theta = thita, thita2, thita3` |
+
+**Default training** (2-frame, Restormer decoder):
+
+```bash
+cd train_code
+python train.py --root /path/to/your/root --data_name dataset_9_36/
+```
+
+#### Train with different numbers of frames:
+```bash
+# 1-frame
+python train.py --frame 1 --root /path/to/your/root --data_name dataset_9_36/
+
+# 3-frame
+python train.py --frame 3 --root /path/to/your/root --data_name dataset_9_36/
+```
+#### Resume training from a checkpoint:
+```bash
+python train.py --root /path/to/your/root --data_name dataset_9_36/ \
+    --pretrained_model_path ./train_record/dataset_9_36/train/restormer/2_DO/net_90epoch.pth
+```
+
+**Key arguments**:
+| Argument | Default | Description |
+| :--- | :---: | :--- |
+| `--method` | `restormer` | Reconstruction network (`restormer`, `unet`, `unetcascade`, `cnn`, `admm_net`) |
+| `--frame` | `1` | Number of measurement frames (1, 2, or 3) |
+| `--aperture_mode` | `DO` | Encoding mode (`DO` for proposed) |
+| `--patch_size` | `400` | Training patch size |
+| `--batch_size` | `1` | Batch size per GPU |
+| `--gpu_id` | `'1'` | CUDA visible device(s) |
+| `--end_epoch` | `3000` | Total training epochs |
+
+After training, all outputs are saved under'./train_record/dataset/train/method/frame/aperture_mode/':
+```text
+train_record/dataset_9_36/train/restormer/2_DO/
+├── train.log                          # Full training log
+├── train_options.txt                  # Training configuration
+├── model_params.txt                   # Model parameters
+├── fun_module_params.txt              # Phase plate parameters
+├── net_0epoch.pth                     # Checkpoint (saved at each epoch)
+├── net_1epoch.pth
+├── ...
+├── net_90epoch.pth                    # Last epoch checkpoint
+└── net_best.pth                       # Best checkpoint (saved when RMSE improves)
+```
+Key training options (see train_option.py for full list):
+| Argument | Default | Description |
+| :--- | :---: | :--- |
+| `--end_epoch` | 3000 | Total training epochs |
+| `--init_lr` | 0.0001 | Initial learning rate for reconstruction network |
+| `--do_lr` | 0.002 | Initial learning rate for phase plate parameters |
+| `--batch_size` | 1 | Batch size per GPU |
+| `--patch_size` | 400 | Input patch size |
+| `--stride` | 2 | Stride for patch extraction |
+| `--gpu_id` | `'1'` | CUDA visible device(s) |
+| `--DO_start_iter` | 300 | Iteration to start optimizing phase plate |
+| `--DO_end_iter` | 50000 | Iteration to stop optimizing phase plate |
+| `--k_loss_d` | 10 | Loss weight for the reconstruction loss |
+| `--k_loss_e` | 0.001 | Loss weight for edge-aware loss |
+| `--salt_noise` | 0.0 | Salt-and-pepper noise intensity |
+| `--gaussian_std` | 0.01 | Gaussian noise standard deviation |
+
 
 ## ✒️ Citation
 If this repo helps you, please consider citing our works:
+
 
 ```bibtex
 @article{huang2026aperture,
