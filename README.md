@@ -46,9 +46,7 @@ In the paper, the proposed ADLIS adopts a compact birefringent coding model with
   </video>
 </div>
 
-&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [RealSLF, Optics Express 2025](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049) [https://github.com/lishiqiao/FlexiDim_demo] offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
-
-If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research.
+&emsp;If you find this repo or dataset useful, please give it a star ⭐ and consider citing our paper in your research.
 THANK YOU!!
 
 ---
@@ -56,7 +54,9 @@ THANK YOU!!
 ## 💾 Dataset
 ![image](https://github.com/TomHuang8/ADLIS/blob/main/Figures/dataset.png)
 
-&emsp;We use the 5D spectral light-field dataset from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo). The raw data has dimensions $H \times W \times 36 \times 5 \times 5$, where $5 \times 5$ denotes the angular views and $36$ is the number of spectral bands. To adapt it for our ADLIS framework, we preprocess the data as follows:
+&emsp;Beyond validating the proposed ADLIS framework, the hyperspectral light-field dataset from [RealSLF, Optics Express 2025](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049) [https://github.com/lishiqiao/FlexiDim_demo] offers broad applicability. It can facilitate research on diverse 5D spectral light-field reconstruction tasks for snapshot computational imaging systems with different encoding strategies. Additionally, the dataset can be adopted as clean ground-truth data to support downstream tasks including light-field denoising and light field super-resolution.
+
+ We use the 5D spectral light-field dataset from [FlexiDim_demo](https://github.com/lishiqiao/FlexiDim_demo). The raw data has dimensions $H \times W \times 36 \times 5 \times 5$, where $5 \times 5$ denotes the angular views and $36$ is the number of spectral bands. To adapt it for our ADLIS framework, we preprocess the data as follows:
 * Spatial resolution cropped to $400 \times 400$ pixels,
 * Angular views subsampled to a $3 \times 3$ grid,
 * All 36 spectral channels retained.
