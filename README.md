@@ -173,7 +173,7 @@ python train.py --root /path/to/your/root --data_name dataset_9_36/ \
 **Key arguments**:
 | Argument | Default | Description |
 | :--- | :---: | :--- |
-| `--method` | `restormer` | Reconstruction network (`restormer`, `unet`, `unetcascade`, `cnn`, `admm_net`) |
+| `--method` | `restormer` | Reconstruction network (`restormer`, `miret`, `mprnet`, `edsr`) |
 | `--frame` | `1` | Number of measurement frames (1, 2, or 3) |
 | `--aperture_mode` | `DO` | Encoding mode (`DO` for proposed) |
 | `--patch_size` | `400` | Training patch size |
