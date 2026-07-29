@@ -17,8 +17,6 @@ def model_generator(method, pretrained_model_path=None):
         model = EDSR().cuda()
     elif method == 'hscnn_plus':
         model = HSCNN_Plus().cuda()
-    elif method == 'cnn':
-        model = CNN().cuda()
 
     else:
         print(f'Method {method} is not defined !!!!')
