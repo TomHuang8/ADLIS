@@ -6,7 +6,6 @@ from .HSCNN_Plus import HSCNN_Plus
 from .MIRNet import MIRNet
 from .MPRNet import MPRNet
 from .Restormer import Restormer
-from .CNN import CNN
 
 
 def model_generator(method, pretrained_model_path=None):
@@ -22,8 +21,7 @@ def model_generator(method, pretrained_model_path=None):
         model = EDSR().cuda()
     elif method == 'hscnn_plus':
         model = HSCNN_Plus().cuda()
-    elif method == 'cnn':
-        model = CNN().cuda()
+
     else:
         print(f'Method {method} is not defined !!!!')
     if pretrained_model_path is not None:
