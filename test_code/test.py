@@ -13,7 +13,6 @@ import matplotlib.pyplot as plt
 import datetime
 from test_option import opt, save_options, save_model_params
 from test_forward_process import FunModule
-from ccfa_forward_process import CCFAModule
 
 
 os.environ["CUDA_DEVICE_ORDER"] = 'PCI_BUS_ID'
@@ -49,51 +48,37 @@ with open(f'{opt.data_root}/split_txt/valid_list.txt', 'r') as fin:
 hyper_list.sort()
 var_name = 'cube'
 
-def validate(val_loader, model, fun_module, ccfa_module, real_module):
+
+def validate(val_loader, model):
     fun_module.is_main = False
-    ccfa_module.is_main = False
-    real_module.is_main = False
     model.eval()
     fun_module.eval()
-    ccfa_module.eval()
-    real_module.eval()
-
     losses_mrae = AverageMeter()
     losses_rmse = AverageMeter()
     losses_psnr = AverageMeter()
     losses_ssim = AverageMeter()
     losses_sam = AverageMeter()
-
     for i, (input, target) in enumerate(val_loader):
         gt = input.cuda()
         target = target.cuda()
         with torch.no_grad():
             if opt.aperture_mode == 'DO':
                 input_meas = fun_module(gt)
-            elif opt.aperture_mode == 'CCFA':
-                input_meas = ccfa_module(gt)
-            elif opt.aperture_mode == 'REAL':
-                input_meas = real_module(gt)
-
             output = model(input_meas)
-
             loss_mrae = criterion_mrae(output, target)
             loss_rmse = criterion_rmse(output, target)
             loss_psnr = criterion_psnr(output, target)
             loss_ssim = criterion_ssim(output, target)
             loss_sam = criterion_sam(output, target)
-
         losses_mrae.update(loss_mrae.data)
         losses_rmse.update(loss_rmse.data)
         losses_psnr.update(loss_psnr.data)
         losses_ssim.update(loss_ssim.data)
         losses_sam.update(loss_sam.data)
-
         result = output.cpu().numpy() * 1.0
         result = np.transpose(np.squeeze(result), [1, 2, 0])
         result = np.minimum(result, 1.0)
         result = np.maximum(result, 0)
-
         current_psnr = loss_psnr.item()
         current_ssim = loss_ssim.item()
         mat_name = f"{os.path.splitext(hyper_list[i])[0]}_psnr_{current_psnr:.4f}_ssim_{current_ssim:.4f}.mat"
@@ -106,14 +91,11 @@ def validate(val_loader, model, fun_module, ccfa_module, real_module):
 if __name__ == '__main__':
     cudnn.benchmark = True
     fun_module = FunModule(is_main=False).cuda()
-    ccfa_module = CCFAModule(is_main=False).cuda()
-    real_module = REALModule(is_main=False).cuda()
-
     pretrained_model_path = opt.pretrained_model_path
     method = opt.method
     model = model_generator(method, pretrained_model_path).cuda()
 
-    mrae, rmse, psnr, ssim, sam = validate(val_loader, model, fun_module, ccfa_module, real_module)
+    mrae, rmse, psnr, ssim, sam = validate(val_loader, model, fun_module)
 
     save_model_params(fun_module, opt.outf, 'fun_module_params.txt')
     save_model_params(model, opt.outf, 'model_params.txt')
