@@ -11,7 +11,7 @@
   <a href='https://arxiv.org/pdf/2607.04635'>
   <img src='https://img.shields.io/badge/Arxiv-2607.04635-A42C25?style=flat&logo=arXiv&logoColor=A42C25'></a> 
   <a href='https://github.com/lishiqiao/FlexiDim_demo'>
-  <img src='https://img.shields.io/badge/Github-DATASET:Flexidim-00008B?style=flat&logo=github&logoColor=FFFFFF'></a>
+  <img src='https://img.shields.io/badge/DATA-RealSLF_FlexiDim-00008B?style=flat&logo=github&logoColor=FFFFFF'></a>
   <a href="https://visitor-badge.laobi.icu/badge?page_id=TomHuang8.ADLIS">
   <img src="https://visitor-badge.laobi.icu/badge?page_id=TomHuang8.ADLIS&left_text=VISITORS&left_color=gray&right_color=%2342b983" alt="Visitors">
    </a>
