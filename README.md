@@ -130,6 +130,16 @@ Download the pre-processed data from [Baidu Netdisk](https://pan.baidu.com/s/1gO
 ├── dataset_9_36/                              #  (training & testing)
 ```
 
+### 3. Pre-trained Models
+
+Download the pretrained model zoo from [Baidu Netdisk](https://pan.baidu.com/s/1bKeZNBdK3KtNdNo9QrVH4Q?pwd=wzak) and place them to `./model_zoo/`:
+
+```text
+model_zoo/
+└── net_300epoch.pth   # Decoder: Restormer, Frame num: 2
+```
+
+
 ## ✒️ Citation
 If this repo helps you, please consider citing our works:
 
