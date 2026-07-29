@@ -26,7 +26,6 @@ from utils import (
 )
 from train_option import opt, save_model_params, save_options
 from train_forward_process import FunModule, process_images, slf_to_lf, process_images_plus
-from ccfa_forward_process import CCFAModule
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpu_id
@@ -116,15 +115,10 @@ sobel_y = torch.tensor(
 ).view(1, 1, 3, 3)
 
 
-def validate(val_loader, model, fun_module, ccfa_module, real_module):
+def validate(val_loader, model, fun_module):
     fun_module.is_main = False
-    ccfa_module.is_main = False
-    real_module.is_main = False
     model.eval()
     fun_module.eval()
-    ccfa_module.eval()
-    real_module.eval()
-
     losses_mrae = AverageMeter()
     losses_rmse = AverageMeter()
     losses_psnr = AverageMeter()
@@ -137,30 +131,19 @@ def validate(val_loader, model, fun_module, ccfa_module, real_module):
 
             if opt.aperture_mode == "WD" or opt.aperture_mode == "DO":
                 input_meas = fun_module(gt)
-            elif opt.aperture_mode == "CCFA":
-                input_meas = ccfa_module(gt)
-            elif opt.aperture_mode == "REAL":
-                input_meas = real_module(gt)
-
             output = model(input_meas)
-
             roi = slice(opt.sizes[0] // 2 - 250, opt.sizes[0] // 2 + 250)
             output_roi = output[:, :, roi, roi]
             target_roi = target[:, :, roi, roi]
-
             loss_mrae = criterion_mrae(output_roi, target_roi)
             loss_rmse = criterion_rmse(output_roi, target_roi)
             loss_psnr = criterion_psnr(output_roi, target_roi)
             loss_ssim = criterion_ssim(output_roi, target_roi)
-
             losses_mrae.update(loss_mrae.data)
             losses_rmse.update(loss_rmse.data)
             losses_psnr.update(loss_psnr.data)
             losses_ssim.update(loss_ssim.data)
-
     fun_module.is_main = True
-    ccfa_module.is_main = True
-    real_module.is_main = True
 
     return losses_mrae.avg, losses_rmse.avg, losses_psnr.avg, losses_ssim.avg
 
@@ -168,10 +151,6 @@ def validate(val_loader, model, fun_module, ccfa_module, real_module):
 def main():
     iteration = 0
     record_rmse = 1000
-
-    ccfa_module = CCFAModule(is_main=True).cuda()
-    real_module = REALModule(is_main=True).cuda()
-
     train_loader = DataLoader(
         dataset=train_data,
         batch_size=opt.batch_size,
@@ -209,13 +188,7 @@ def main():
 
             if opt.aperture_mode == "WD" or opt.aperture_mode == "DO":
                 images_meas = fun_module(images)
-            elif opt.aperture_mode == "CCFA":
-                images_meas = ccfa_module(images)
-            elif opt.aperture_mode == "REAL":
-                images_meas = real_module(images)
-
             output = model(images_meas)
-
             output_space = slf_to_lf(output).mean(dim=1)
             labels_space = slf_to_lf(labels).mean(dim=1)
 
@@ -287,7 +260,7 @@ def main():
 
             if iteration % 100 == 0:
                 mrae_loss, rmse_loss, psnr_loss, ssim_loss = validate(
-                    val_loader, model, fun_module, ccfa_module, real_module
+                    val_loader, model, fun_module
                 )
                 print(f"RMSE: {rmse_loss}, PSNR: {psnr_loss}, SSIM: {ssim_loss}")
 
