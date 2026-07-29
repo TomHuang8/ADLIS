@@ -211,6 +211,41 @@ Key training options (see train_option.py for full list):
 | `--salt_noise` | 0.0 | Salt-and-pepper noise intensity |
 | `--gaussian_std` | 0.01 | Gaussian noise standard deviation |
 
+### 5. Testing
+```bash
+cd train_code
+python test.py --root /path/to/your/root --data_name dataset_9_36/
+```
+This loads the default pretrained model from ../../model_zoo/net_90epoch.pth. To test a specific checkpoint:
+
+```bash
+python test.py --root /path/to/your/root --data_name dataset_9_36/ \
+    --pretrained_model_path /path/to/your/checkpoint.pth
+```
+
+**Key arguments**:
+
+| Argument | Default | Description |
+| :--- | :---: | :--- |
+| `--method` | `restormer` | Reconstruction network (`restormer`, `miret`, `mprnet`, `edsr`) |
+| `--frame` | `1` | Number of measurement frames (1, 2 or 3) |
+| `--aperture_mode` | `DO` | Encoding mode (`DO` for proposed) |
+| `--pretrained_model_path` | `../../model_zoo/net_90epoch.pth` | Path to the pretrained checkpoint |
+
+After testing, results are saved under ./test_record/dataset/test/method/timestamp/:
+```text
+test_record/dataset_9_36/test/restormer/2025-01-15_10-30-45/  #as a demo
+├── test_options.txt                  # Testing configuration
+├── model_params.txt                  # Model parameters
+├── fun_module_params.txt             # Phase plate parameters
+├── scene1_psnr_35.1234_ssim_0.9654.mat   # Reconstruction results (.mat)
+├── scene2_psnr_34.5678_ssim_0.9587.mat
+└── ...
+```
+The printed output includes average metrics across all test scenes:
+```text
+method:restormer, mrae:0.023456, rmse:0.034567, psnr:35.123456, ssim:0.965432, sam:12.345678  # as a demo
+```
 
 ## ✒️ Citation
 If this repo helps you, please consider citing our works:
@@ -225,7 +260,7 @@ If this repo helps you, please consider citing our works:
 }
 ```
 
-If you use the 5D-SLF dataset, please consider citing the works below:
+If you use the 5D-SLF dataset [RealSLF](https://opg.optica.org/abstract.cfm?uri=oe-33-21-45049), please consider citing the works below:
 ```bibtex
 @article{li2025realslf,
   title={RealSLF and FlexiDim: towards practical spectral light field imaging},
