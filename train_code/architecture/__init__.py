@@ -10,9 +10,7 @@ from .CNN import CNN
 
 
 def model_generator(method, pretrained_model_path=None):
-    if method == 'mirnet':
-        model = MIRNet(n_RRG=3, n_MSRB=1, height=3, width=1).cuda()
-    elif method == 'hinet':
+    if method == 'hinet':
         model = HINet(depth=4).cuda()
     elif method == 'mprnet':
         model = MPRNet(num_cab=4).cuda()
