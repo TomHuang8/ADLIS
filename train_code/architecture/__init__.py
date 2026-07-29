@@ -3,11 +3,8 @@ from train_option import opt
 from .edsr import EDSR
 from .hinet import HINet
 from .HSCNN_Plus import HSCNN_Plus
-from .MIRNet import MIRNet
 from .MPRNet import MPRNet
 from .Restormer import Restormer
-from .CNN import CNN
-
 
 def model_generator(method, pretrained_model_path=None):
     if method == 'hinet':
