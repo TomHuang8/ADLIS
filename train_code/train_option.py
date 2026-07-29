@@ -45,17 +45,16 @@ parser.add_argument("--num_pixels", type=int, default=0, help='number of views')
 parser.add_argument("--num_wavelengths", type=int, default=0, help='number of wavelengths')
 parser.add_argument("--n_o", type=float, default=1.5440, help='ordinary refractive index')
 parser.add_argument("--n_e", type=float, default=1.5519, help='extraordinary refractive index')
-parser.add_argument("--sizes", type=int, default=0, help='ground truth size')
-parser.add_argument("--seed", type=int, default=1, help='random seed')
+parser.add_argument("--sizes", type=int, default=400, help='ground truth size')
+parser.add_argument("--seed", type=int, default=42, help='random seed')
 parser.add_argument("--canny_mode", type=str, default='REGION', help='canny mode: REGION or EDGE')
-parser.add_argument("--aperture_mode", type=str, default='DO', help='aperture mode: CCFA, DO, REAL')
+parser.add_argument("--aperture_mode", type=str, default='DO', help='aperture mode')
 parser.add_argument("--canny_size", type=int, default=15, help='canny kernel size')
 parser.add_argument("--canny_threshold", type=int, default=[5, 15], help='canny thresholds')
 parser.add_argument("--salt_noise", type=float, default=0.0, help='salt and pepper noise intensity')
 parser.add_argument("--gaussian_std", type=float, default=0.01, help='gaussian noise standard deviation')
 parser.add_argument("--optics_d", type=int, default=[644.0, 671.0, 692.0, 587.0, 683.0, 645.0, 905.0, 854.0, 597.0], help='initial thickness values')
 parser.add_argument("--norm", type=int, default=1, help='normalization factor')
-
 parser.add_argument("--admm_unet_feats", type=int, default=32, help='admm unet features')
 parser.add_argument("--cstfeats", type=int, default=48, help='cst features')
 parser.add_argument("--mirnetfeats", type=int, default=48, help='mirnet features')
@@ -63,15 +62,10 @@ parser.add_argument("--unetfeats", type=int, default=8, help='unet features')
 parser.add_argument("--hrnetchannels", type=int, default=24, help='hrnet channels')
 parser.add_argument("--hdnetfeats", type=int, default=24, help='hdnet features')
 
-
 opt = parser.parse_args()
 
-if opt.aperture_mode == 'CCFA':
-    opt.frame = 1
-elif opt.aperture_mode == 'DO':
+if opt.aperture_mode == 'DO':
     opt.frame = opt.frame
-
-
 opt.data_root = os.path.join(opt.root, opt.data_name)
 last_folder = os.path.basename(os.path.normpath(opt.data_root))
 opt.outf = os.path.join('../../train_record/', last_folder, 'train/', opt.method, str(opt.frame), str(opt.aperture_mode))
