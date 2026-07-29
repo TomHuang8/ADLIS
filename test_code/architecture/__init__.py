@@ -1,24 +1,17 @@
 import torch
+from train_option import opt
 from .edsr import EDSR
-from .HDNet import HDNet
 from .hinet import HINet
-from .hrnet import SGN
 from .HSCNN_Plus import HSCNN_Plus
 from .MIRNet import MIRNet
 from .MPRNet import MPRNet
-from .MST import MST
-from .MST_Plus_Plus import MST_Plus_Plus
 from .Restormer import Restormer
-from .AWAN import AWAN
-from .UNet import UNet
+from .CNN import CNN
+
 
 def model_generator(method, pretrained_model_path=None):
     if method == 'mirnet':
         model = MIRNet(n_RRG=3, n_MSRB=1, height=3, width=1).cuda()
-    elif method == 'mst_plus_plus':
-        model = MST_Plus_Plus().cuda()
-    elif method == 'mst':
-        model = MST(dim=31, stage=2, num_blocks=[4, 7, 5]).cuda()
     elif method == 'hinet':
         model = HINet(depth=4).cuda()
     elif method == 'mprnet':
@@ -27,16 +20,10 @@ def model_generator(method, pretrained_model_path=None):
         model = Restormer().cuda()
     elif method == 'edsr':
         model = EDSR().cuda()
-    elif method == 'hdnet':
-        model = HDNet().cuda()
-    elif method == 'hrnet':
-        model = SGN().cuda()
     elif method == 'hscnn_plus':
         model = HSCNN_Plus().cuda()
-    elif method == 'awan':
-        model = AWAN().cuda()
-    elif method == 'unet':
-        model = UNet().cuda()
+    elif method == 'cnn':
+        model = CNN().cuda()
     else:
         print(f'Method {method} is not defined !!!!')
     if pretrained_model_path is not None:
