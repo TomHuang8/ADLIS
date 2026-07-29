@@ -10,8 +10,9 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Visitors">
   <a href='https://arxiv.org/pdf/2607.04635'>
   <img src='https://img.shields.io/badge/Arxiv-2607.04635-A42C25?style=flat&logo=arXiv&logoColor=A42C25'></a> 
-  <a href='https://github.com/lishiqiao/FlexiDim_demo'> 
-  <img src='https://img.shields.io/badge/Dataset%20(Github:FlexiDim_demo)-blue'></a>
+  <a href='https://github.com/lishiqiao/FlexiDim_demo'>
+  <img src='https://img.shields.io/badge/Dataset:FlexiDim-demo?labelColor=gray&color=blue&logo=github&logoColor=white'>
+</a>
   <a href="https://visitor-badge.laobi.icu/badge?page_id=TomHuang8.ADLIS">
   <img src="https://visitor-badge.laobi.icu/badge?page_id=TomHuang8.ADLIS&left_text=VISITORS&left_color=gray&right_color=%2342b983" alt="Visitors">
    </a>
