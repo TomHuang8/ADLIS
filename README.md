@@ -201,15 +201,9 @@ Key training options (see train_option.py for full list):
 | `--init_lr` | 0.0001 | Initial learning rate for reconstruction network |
 | `--do_lr` | 0.002 | Initial learning rate for phase plate parameters |
 | `--batch_size` | 1 | Batch size per GPU |
-| `--patch_size` | 400 | Input patch size |
+| `--patch_size` | 100 | Input patch size |
 | `--stride` | 2 | Stride for patch extraction |
-| `--gpu_id` | `'1'` | CUDA visible device(s) |
-| `--DO_start_iter` | 300 | Iteration to start optimizing phase plate |
-| `--DO_end_iter` | 50000 | Iteration to stop optimizing phase plate |
-| `--k_loss_d` | 10 | Loss weight for the reconstruction loss |
-| `--k_loss_e` | 0.001 | Loss weight for edge-aware loss |
-| `--salt_noise` | 0.0 | Salt-and-pepper noise intensity |
-| `--gaussian_std` | 0.01 | Gaussian noise standard deviation |
+
 
 ### 5. Testing
 ```bash
